@@ -54,11 +54,11 @@ struct EventCell: View {
 
     var title: some View {
         VStack(alignment: .center, spacing: 5) {
-            Text(event.date, style: .date)
+            Text(event.date ?? .now, style: .date)
                 .font(.caption)
                 .fontWidth(.condensed)
 
-            Text(event.name)
+            Text(event.name ?? "")
                 .font(.title2)
                 .bold()
 

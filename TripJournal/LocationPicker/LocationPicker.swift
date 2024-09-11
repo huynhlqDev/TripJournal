@@ -97,7 +97,7 @@ struct LocationPicker: View {
                 let location = Location(
                     latitude: coordinate.latitude,
                     longitude: coordinate.longitude,
-                    address: item.name
+                    address: item.name ?? ""
                 )
                 selectionHandler(location)
                 dismiss()

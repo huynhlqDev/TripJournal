@@ -13,7 +13,7 @@ enum APIRequest {
     case register(username: String, password: String)
     case login(username: String, password: String)
     // Trip request
-    case createTrip(trip: Trip)
+    case createTrip(trip: TripCreate)
     case readTrips
     case readTrip(id: Int)
     case updateTrip(id: Int, trip: Trip)
@@ -39,7 +39,7 @@ enum APIRequest {
             return "/register"
         case .login:
             return "/token"
-        case .createTrip(trip: let trip):
+        case .createTrip(_):
             return "/trips"
         case .readTrips:
             return "/trips"
@@ -57,7 +57,7 @@ enum APIRequest {
             return "events/\(id)"
         case .deleteEvent(id: let id):
             return "/events/\(id)"
-        case .uploadMedia(media: let media):
+        case .uploadMedia(_):
             return "/media"
         case .deleteMedia(id: let id):
             return "/media/\(id)"
@@ -69,17 +69,17 @@ enum APIRequest {
         switch self {
         case .register: "POST"
         case .login: "POST"
-        case .createTrip(trip: let trip): "POSTs"
+        case .createTrip(_): "POST"
         case .readTrips: "GET"
         case .readTrip(_): "GET"
         case .updateTrip(_, _): "PUT"
         case .deleteTrip(_): "DELETE"
         case .createEvent(_): "POST"
-        case .readEvent(id: let id): "GET"
+        case .readEvent(id: _): "GET"
         case .updateEvent(_, _): "PUT"
-        case .deleteEvent(id: let id): "DELETE"
-        case .uploadMedia(media: let media): "POST"
-        case .deleteMedia(id: let id): "DELETE"
+        case .deleteEvent(_): "DELETE"
+        case .uploadMedia(_): "POST"
+        case .deleteMedia(_): "DELETE"
         }
     }
 
@@ -92,14 +92,10 @@ enum APIRequest {
                 "Content-Type": "application/x-www-form-urlencoded"
             ]
         case .deleteTrip(_), .deleteEvent(_), .deleteMedia(_):
-            return [
-                "accept": "*/*",
-                "Authorization": "Bearer your_token" // TODO: replace the real Token
-            ]
+            return ["accept": "*/*"]
         default:
             return [
                 "accept": "application/json",
-                "Authorization": "Bearer your_token", // TODO: replace the real Token
                 "Content-Type": "application/json"
             ]
         }
@@ -109,6 +105,7 @@ enum APIRequest {
     var parametersData: Data? {
         let encoder = JSONEncoder()
         encoder.keyEncodingStrategy = .convertToSnakeCase
+        encoder.dateEncodingStrategy = .iso8601
 
         switch self {
         case .login(let username, let password):

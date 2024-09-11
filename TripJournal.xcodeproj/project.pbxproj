@@ -32,6 +32,7 @@
 		07F6695D2B589A1E002F8D18 /* AddButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07F6695C2B589A1E002F8D18 /* AddButton.swift */; };
 		13DB4B3E2C8F450700B03DF1 /* JournalAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13DB4B3D2C8F450700B03DF1 /* JournalAPIService.swift */; };
 		13DB4B412C90A03600B03DF1 /* APIRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13DB4B402C90A03600B03DF1 /* APIRequest.swift */; };
+		13DB4B442C91D35300B03DF1 /* KeychainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13DB4B432C91D35300B03DF1 /* KeychainManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -61,6 +62,7 @@
 		07F6695C2B589A1E002F8D18 /* AddButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddButton.swift; sourceTree = "<group>"; };
 		13DB4B3D2C8F450700B03DF1 /* JournalAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalAPIService.swift; sourceTree = "<group>"; };
 		13DB4B402C90A03600B03DF1 /* APIRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIRequest.swift; sourceTree = "<group>"; };
+		13DB4B432C91D35300B03DF1 /* KeychainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,6 +104,7 @@
 				07BCBA8D2B5D666E00C6F687 /* LocationPicker */,
 				07AA89D82B5F256800405269 /* Models */,
 				07AA89D22B5F241200405269 /* Trips */,
+				13DB4B422C91D31300B03DF1 /* Manager */,
 				13DB4B3F2C90A01C00B03DF1 /* Enum */,
 				07AA89D32B5F242100405269 /* Utils */,
 			);
@@ -186,6 +189,14 @@
 			path = Enum;
 			sourceTree = "<group>";
 		};
+		13DB4B422C91D31300B03DF1 /* Manager */ = {
+			isa = PBXGroup;
+			children = (
+				13DB4B432C91D35300B03DF1 /* KeychainManager.swift */,
+			);
+			path = Manager;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -259,6 +270,7 @@
 				13DB4B412C90A03600B03DF1 /* APIRequest.swift in Sources */,
 				07BCBA7A2B5B256500C6F687 /* MediaGallery.swift in Sources */,
 				0703FC7A2B493D5B0084DD8A /* LocationService.swift in Sources */,
+				13DB4B442C91D35300B03DF1 /* KeychainManager.swift in Sources */,
 				0703FC722B457EF40084DD8A /* Models.swift in Sources */,
 				075A91012B446B17009A1DCB /* AuthView.swift in Sources */,
 				0703FC742B4583B80084DD8A /* JournalService.swift in Sources */,

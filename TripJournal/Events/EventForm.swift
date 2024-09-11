@@ -37,9 +37,9 @@ struct EventForm: View {
 
         case let .edit(event):
             title = "Edit \(event.name)"
-            _name = .init(initialValue: event.name)
+            _name = .init(initialValue: event.name ?? "")
             _note = .init(initialValue: event.note)
-            _date = .init(initialValue: event.date)
+            _date = .init(initialValue: event.date ?? .now)
             _location = .init(initialValue: event.location)
             _transitionFromPrevious = .init(initialValue: event.transitionFromPrevious)
         }
