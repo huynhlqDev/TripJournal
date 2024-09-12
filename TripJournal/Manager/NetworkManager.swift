@@ -7,6 +7,7 @@
 
 import Foundation
 
+// MARK: Enum Network Error
 enum NetworkError: Error {
     case badRequest
     case badResponse
@@ -54,8 +55,7 @@ final class NetworkManager {
             // Verify HTTP response and checking status (200 - 299: OK)
             guard
                 let httpResponse = response as? HTTPURLResponse,
-                httpResponse.statusCode >= 200,
-                httpResponse.statusCode <= 299
+                (200...299).contains(httpResponse.statusCode)
             else {
                 throw NetworkError.badResponse
             }
@@ -104,8 +104,7 @@ final class NetworkManager {
             // Verify HTTP response and checking status (200 - 299: OK)
             guard
                 let httpResponse = response as? HTTPURLResponse,
-                httpResponse.statusCode >= 200,
-                httpResponse.statusCode <= 299
+                (200...299).contains(httpResponse.statusCode)
             else {
                 throw NetworkError.badResponse
             }

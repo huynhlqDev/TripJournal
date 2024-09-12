@@ -8,7 +8,6 @@
 import Combine
 import Foundation
 
-
 class JournalAPIService: JournalService {
 
     @Published private var token: Token? {
@@ -118,4 +117,5 @@ class JournalAPIService: JournalService {
             request: APIRequest.deleteEvent(id: mediaId)
         )
     }
+    
 }

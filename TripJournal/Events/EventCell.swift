@@ -111,7 +111,7 @@ struct EventCell: View {
         let bounds = MapCameraBounds(centerCoordinateBounds: region, minimumDistance: 250, maximumDistance: .infinity)
 
         Map(bounds: bounds) {
-            Marker(location.address ?? "", coordinate: location.coordinate)
+            Marker(location.address, coordinate: location.coordinate)
         }
         .mapStyle(.standard(elevation: .realistic))
         .frame(height: 150)

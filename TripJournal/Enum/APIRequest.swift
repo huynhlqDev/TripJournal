@@ -7,7 +7,7 @@
 
 import Foundation
 
-// Define an enum for your API endpoints
+/// Define an enum for your API endpoints
 enum APIRequest {
     // Authentication request
     case register(username: String, password: String)
