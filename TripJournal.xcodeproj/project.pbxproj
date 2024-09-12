@@ -33,6 +33,7 @@
 		13DB4B3E2C8F450700B03DF1 /* JournalAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13DB4B3D2C8F450700B03DF1 /* JournalAPIService.swift */; };
 		13DB4B412C90A03600B03DF1 /* APIRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13DB4B402C90A03600B03DF1 /* APIRequest.swift */; };
 		13DB4B442C91D35300B03DF1 /* KeychainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13DB4B432C91D35300B03DF1 /* KeychainManager.swift */; };
+		13DB4B462C934E6500B03DF1 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13DB4B452C934E6500B03DF1 /* NetworkManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -63,6 +64,7 @@
 		13DB4B3D2C8F450700B03DF1 /* JournalAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalAPIService.swift; sourceTree = "<group>"; };
 		13DB4B402C90A03600B03DF1 /* APIRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIRequest.swift; sourceTree = "<group>"; };
 		13DB4B432C91D35300B03DF1 /* KeychainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainManager.swift; sourceTree = "<group>"; };
+		13DB4B452C934E6500B03DF1 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -193,6 +195,7 @@
 			isa = PBXGroup;
 			children = (
 				13DB4B432C91D35300B03DF1 /* KeychainManager.swift */,
+				13DB4B452C934E6500B03DF1 /* NetworkManager.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -282,6 +285,7 @@
 				07BCBA892B5D65AD00C6F687 /* JournalService+Unimplemented.swift in Sources */,
 				075A90F12B4469C0009A1DCB /* RootView.swift in Sources */,
 				075A90F72B446A5C009A1DCB /* TripForm.swift in Sources */,
+				13DB4B462C934E6500B03DF1 /* NetworkManager.swift in Sources */,
 				07BCBA872B5D656E00C6F687 /* JournalService+Mock.swift in Sources */,
 				0767E7102B573F6300993870 /* LocationSearchView.swift in Sources */,
 				075A90FB2B446A80009A1DCB /* EventCell.swift in Sources */,

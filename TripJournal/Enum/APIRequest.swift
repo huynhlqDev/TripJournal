@@ -21,10 +21,10 @@ enum APIRequest {
     // Event request
     case createEvent(event: EventCreate)
     case readEvent(id: Int)
-    case updateEvent(id: Int, event: Event)
+    case updateEvent(id: Int, event: EventUpdate)
     case deleteEvent(id: Int)
     // Media request
-    case uploadMedia(media: Media)
+    case uploadMedia(media: MediaCreate)
     case deleteMedia(id: Int)
 
     // Base URL of the API
@@ -54,7 +54,7 @@ enum APIRequest {
         case .readEvent(id: let id):
             return "/events/\(id)"
         case .updateEvent(id: let id, _):
-            return "events/\(id)"
+            return "/events/\(id)"
         case .deleteEvent(id: let id):
             return "/events/\(id)"
         case .uploadMedia(_):

@@ -27,13 +27,13 @@ struct TripUpdate: Codable {
 }
 
 /// An object that can be used to create a media.
-struct MediaCreate {
+struct MediaCreate: Codable {
     let eventId: Event.ID
     let base64Data: Data
 }
 
 /// An object that can be used to create a new event.
-struct EventCreate {
+struct EventCreate: Codable {
     let tripId: Trip.ID
     let name: String
     let note: String?
@@ -43,7 +43,7 @@ struct EventCreate {
 }
 
 /// An object that can be used to update an existing event.
-struct EventUpdate {
+struct EventUpdate: Codable {
     var name: String
     var note: String?
     var date: Date

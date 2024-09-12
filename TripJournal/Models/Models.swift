@@ -31,7 +31,7 @@ struct Trip: Identifiable, Sendable, Hashable, Codable {
 
 /// Represents an event in a trip.
 struct Event: Identifiable, Sendable, Hashable, Codable {
-    var id: Int?
+    var id: Int
     var name: String?
     var note: String?
     var date: Date?

@@ -28,272 +28,94 @@ class JournalAPIService: JournalService {
 
     init() {}
 
-    func register(username: String, password: String) async throws -> Token {
-        let loginRequest = APIRequest.register(username: username, password: password)
-
-        guard let request = loginRequest.asURLRequest() else {
-            throw NetworkError.badRequest
-        }
-        do {
-            let (data, response) = try await URLSession.shared.data(for: request)
-
-            guard let httpResponse = response as? HTTPURLResponse else {
-                throw NetworkError.badResponse
-            }
-
-            guard httpResponse.statusCode == 200 else {
-                throw NetworkError.badResponse
-            }
-            do {
-                let token = try JSONDecoder().decode(Token.self, from: data)
-                self.token = token
-                return token
-            } catch {
-                throw NetworkError.failedToDecodeResponse
-            }
-        } catch {
-            throw NetworkError.badResponse
-        }
-
-    }
-
-    func logIn(username: String, password: String) async throws -> Token {
-        let loginRequest = APIRequest.login(username: username, password: password)
-
-        guard let request = loginRequest.asURLRequest() else {
-            throw NetworkError.badRequest
-        }
-        do {
-            let (data, response) = try await URLSession.shared.data(for: request)
-
-            guard let httpResponse = response as? HTTPURLResponse else {
-                throw NetworkError.badResponse
-            }
-
-            guard httpResponse.statusCode == 200 else {
-                throw NetworkError.badResponse
-            }
-            do {
-                let token = try JSONDecoder().decode(Token.self, from: data)
-                self.token = token
-                return token
-            } catch {
-                throw NetworkError.failedToDecodeResponse
-            }
-        } catch {
-            throw NetworkError.badResponse
-        }
-
-    }
-
     func logOut() {
         self.token = nil
     }
 
+    func register(username: String, password: String) async throws -> Token {
+        let token: Token = try await NetworkManager.shared.requestAPIWithResponse(
+            request: APIRequest.register(username: username, password: password),
+            responseType: Token.self,
+            isAuthorization: false
+        )
+        self.token = token
+        return token
+    }
+
+    func logIn(username: String, password: String) async throws -> Token {
+        let token: Token = try await NetworkManager.shared.requestAPIWithResponse(
+            request: APIRequest.login(username: username, password: password),
+            responseType: Token.self,
+            isAuthorization: false
+        )
+        self.token = token
+        return token
+    }
+
     func createTrip(with request: TripCreate) async throws -> Trip {
-        let loginRequest = APIRequest.createTrip(trip: request)
-
-        guard var request = loginRequest.asURLRequest() else {
-            throw NetworkError.badRequest
-        }
-        guard let token = try KeychainManager.shared.getToken() else {
-            throw NetworkError.badRequest
-        }
-        request.setValue("\(token.tokenType) \(token.accessToken)", forHTTPHeaderField: "Authorization")
-        do {
-            let (data, response) = try await URLSession.shared.data(for: request)
-
-            guard let httpResponse = response as? HTTPURLResponse else {
-                throw NetworkError.badResponse
-            }
-            guard httpResponse.statusCode == 200 else {
-                throw NetworkError.badResponse
-            }
-            do {
-                let decoder = JSONDecoder()
-                decoder.dateDecodingStrategy = .iso8601
-                let trip = try decoder.decode(Trip.self, from: data)
-                return trip
-            } catch {
-                throw NetworkError.failedToDecodeResponse
-            }
-        } catch {
-            throw NetworkError.badResponse
-        }
+        try await NetworkManager.shared.requestAPIWithResponse(
+            request: APIRequest.createTrip(trip: request),
+            responseType: Trip.self
+        )
     }
 
     func getTrips() async throws -> [Trip] {
-        let loginRequest = APIRequest.readTrips
-
-        guard var request = loginRequest.asURLRequest() else {
-            throw NetworkError.badRequest
-        }
-        guard let token = try KeychainManager.shared.getToken() else {
-            throw NetworkError.badRequest
-        }
-        request.setValue("\(token.tokenType) \(token.accessToken)", forHTTPHeaderField: "Authorization")
-        do {
-            let (data, response) = try await URLSession.shared.data(for: request)
-
-            guard let httpResponse = response as? HTTPURLResponse else {
-                throw NetworkError.badResponse
-            }
-            guard httpResponse.statusCode == 200 else {
-                throw NetworkError.badResponse
-            }
-            do {
-                let decoder = JSONDecoder()
-                decoder.dateDecodingStrategy = .iso8601
-                let trips = try decoder.decode([Trip].self, from: data)
-                return trips
-            } catch {
-                throw NetworkError.failedToDecodeResponse
-            }
-        } catch {
-            throw NetworkError.badResponse
-        }
+        try await NetworkManager.shared.requestAPIWithResponse(
+            request: APIRequest.readTrips,
+            responseType: [Trip].self
+        )
     }
 
     func getTrip(withId tripId: Trip.ID) async throws -> Trip {
-        let loginRequest = APIRequest.readTrip(id: tripId)
-
-        guard var request = loginRequest.asURLRequest() else {
-            throw NetworkError.badRequest
-        }
-        guard let token = try KeychainManager.shared.getToken() else {
-            throw NetworkError.badRequest
-        }
-        request.setValue("\(token.tokenType) \(token.accessToken)", forHTTPHeaderField: "Authorization")
-        do {
-            let (data, response) = try await URLSession.shared.data(for: request)
-
-            guard let httpResponse = response as? HTTPURLResponse else {
-                throw NetworkError.badResponse
-            }
-            guard httpResponse.statusCode == 200 else {
-                throw NetworkError.badResponse
-            }
-            do {
-                let decoder = JSONDecoder()
-                decoder.dateDecodingStrategy = .iso8601
-                let trip = try decoder.decode(Trip.self, from: data)
-                return trip
-            } catch {
-                throw NetworkError.failedToDecodeResponse
-            }
-        } catch {
-            throw NetworkError.badResponse
-        }
+        try await NetworkManager.shared.requestAPIWithResponse(
+            request: APIRequest.readTrip(id: tripId),
+            responseType: Trip.self
+        )
     }
 
     func updateTrip(withId tripId: Trip.ID, and request: TripUpdate) async throws -> Trip {
-        let loginRequest = APIRequest.updateTrip(id: tripId, trip: request)
-
-        guard var request = loginRequest.asURLRequest() else {
-            throw NetworkError.badRequest
-        }
-        guard let token = try KeychainManager.shared.getToken() else {
-            throw NetworkError.badRequest
-        }
-        request.setValue("\(token.tokenType) \(token.accessToken)", forHTTPHeaderField: "Authorization")
-        do {
-            let (data, response) = try await URLSession.shared.data(for: request)
-
-            guard let httpResponse = response as? HTTPURLResponse else {
-                throw NetworkError.badResponse
-            }
-            guard httpResponse.statusCode == 200 else {
-                throw NetworkError.badResponse
-            }
-            do {
-                let decoder = JSONDecoder()
-                decoder.dateDecodingStrategy = .iso8601
-                let trip = try decoder.decode(Trip.self, from: data)
-                return trip
-            } catch {
-                throw NetworkError.failedToDecodeResponse
-            }
-        } catch {
-            throw NetworkError.badResponse
-        }
+        try await NetworkManager.shared.requestAPIWithResponse(
+            request: APIRequest.updateTrip(id: tripId, trip: request),
+            responseType: Trip.self
+        )
     }
 
     func deleteTrip(withId tripId: Trip.ID) async throws {
-        let loginRequest = APIRequest.deleteTrip(id: tripId)
-
-        guard var request = loginRequest.asURLRequest() else {
-            throw NetworkError.badRequest
-        }
-        guard let token = try KeychainManager.shared.getToken() else {
-            throw NetworkError.badRequest
-        }
-        request.setValue("\(token.tokenType) \(token.accessToken)", forHTTPHeaderField: "Authorization")
-        do {
-            let (_, response) = try await URLSession.shared.data(for: request)
-
-            guard let httpResponse = response as? HTTPURLResponse else {
-                throw NetworkError.badResponse
-            }
-            guard httpResponse.statusCode == 204 else {
-                throw NetworkError.badResponse
-            }
-        } catch {
-            throw NetworkError.badResponse
-        }
+        try await NetworkManager.shared.requestAPIWithoutResponse(
+            request: APIRequest.deleteTrip(id: tripId)
+        )
     }
 
     func createEvent(with request: EventCreate) async throws -> Event {
-        let loginRequest = APIRequest.createEvent(event: request)
-
-        guard var request = loginRequest.asURLRequest() else {
-            throw NetworkError.badRequest
-        }
-        guard let token = try KeychainManager.shared.getToken() else {
-            throw NetworkError.badRequest
-        }
-        request.setValue("\(token.tokenType) \(token.accessToken)", forHTTPHeaderField: "Authorization")
-        do {
-            let (data, response) = try await URLSession.shared.data(for: request)
-
-            guard let httpResponse = response as? HTTPURLResponse else {
-                throw NetworkError.badResponse
-            }
-            guard httpResponse.statusCode == 200 else {
-                throw NetworkError.badResponse
-            }
-            do {
-                let decoder = JSONDecoder()
-                decoder.dateDecodingStrategy = .iso8601
-                let trip = try decoder.decode(Trip.self, from: data)
-                return trip
-            } catch {
-                throw NetworkError.failedToDecodeResponse
-            }
-        } catch {
-            throw NetworkError.badResponse
-        }
+        try await NetworkManager.shared.requestAPIWithResponse(
+            request: APIRequest.createEvent(event: request),
+            responseType: Event.self
+        )
     }
 
     func updateEvent(withId eventId: Event.ID, and request: EventUpdate) async throws -> Event {
-//        Event(id: 1, name: "", date: .now, medias: [])
-        fatalError()
+        try await NetworkManager.shared.requestAPIWithResponse(
+            request: APIRequest.updateEvent(id: eventId, event: request),
+            responseType: Event.self
+        )
     }
 
     func deleteEvent(withId eventId: Event.ID) async throws {
-
+        try await NetworkManager.shared.requestAPIWithoutResponse(
+            request: APIRequest.deleteEvent(id: eventId)
+        )
     }
 
     func createMedia(with request: MediaCreate) async throws -> Media {
-        fatalError()
+        try await NetworkManager.shared.requestAPIWithResponse(
+            request: APIRequest.uploadMedia(media: request),
+            responseType: Media.self
+        )
     }
 
     func deleteMedia(withId mediaId: Media.ID) async throws {
-
-    }
-
-    enum NetworkError: Error {
-        case badRequest
-        case badResponse
-        case failedToDecodeResponse
+        try await NetworkManager.shared.requestAPIWithoutResponse(
+            request: APIRequest.deleteEvent(id: mediaId)
+        )
     }
 }
