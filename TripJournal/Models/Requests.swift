@@ -14,10 +14,16 @@ struct TripCreate: Codable {
 }
 
 /// An object that can be used to update an existing trip.
-struct TripUpdate {
+struct TripUpdate: Codable {
     let name: String
     let startDate: Date
     let endDate: Date
+
+    enum CodingKeys: String, CodingKey {
+        case name
+        case startDate = "start_date"
+        case endDate = "end_date"
+    }
 }
 
 /// An object that can be used to create a media.

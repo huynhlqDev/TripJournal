@@ -16,10 +16,10 @@ enum APIRequest {
     case createTrip(trip: TripCreate)
     case readTrips
     case readTrip(id: Int)
-    case updateTrip(id: Int, trip: Trip)
+    case updateTrip(id: Int, trip: TripUpdate)
     case deleteTrip(id: Int)
     // Event request
-    case createEvent(event: Event)
+    case createEvent(event: EventCreate)
     case readEvent(id: Int)
     case updateEvent(id: Int, event: Event)
     case deleteEvent(id: Int)
