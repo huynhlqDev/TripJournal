@@ -110,7 +110,9 @@ class JournalAPIService: JournalService {
                 throw NetworkError.badResponse
             }
             do {
-                let trip = try JSONDecoder().decode(Trip.self, from: data)
+                let decoder = JSONDecoder()
+                decoder.dateDecodingStrategy = .iso8601
+                let trip = try decoder.decode(Trip.self, from: data)
                 return trip
             } catch {
                 throw NetworkError.failedToDecodeResponse
