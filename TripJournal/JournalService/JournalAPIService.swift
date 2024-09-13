@@ -114,7 +114,7 @@ class JournalAPIService: JournalService {
 
     func deleteMedia(withId mediaId: Media.ID) async throws {
         try await NetworkManager.shared.requestAPIWithoutResponse(
-            request: APIRequest.deleteEvent(id: mediaId)
+            request: APIRequest.deleteMedia(id: mediaId)
         )
     }
     
