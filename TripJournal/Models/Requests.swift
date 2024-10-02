@@ -1,27 +1,39 @@
 import Foundation
 
 /// An object that can be used to create a new trip.
-struct TripCreate {
+struct TripCreate: Codable {
     let name: String
     let startDate: Date
     let endDate: Date
+
+    enum CodingKeys: String, CodingKey {
+        case name
+        case startDate = "start_date"
+        case endDate = "end_date"
+    }
 }
 
 /// An object that can be used to update an existing trip.
-struct TripUpdate {
+struct TripUpdate: Codable {
     let name: String
     let startDate: Date
     let endDate: Date
+
+    enum CodingKeys: String, CodingKey {
+        case name
+        case startDate = "start_date"
+        case endDate = "end_date"
+    }
 }
 
 /// An object that can be used to create a media.
-struct MediaCreate {
+struct MediaCreate: Codable {
     let eventId: Event.ID
     let base64Data: Data
 }
 
 /// An object that can be used to create a new event.
-struct EventCreate {
+struct EventCreate: Codable {
     let tripId: Trip.ID
     let name: String
     let note: String?
@@ -31,7 +43,7 @@ struct EventCreate {
 }
 
 /// An object that can be used to update an existing event.
-struct EventUpdate {
+struct EventUpdate: Codable {
     var name: String
     var note: String?
     var date: Date

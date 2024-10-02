@@ -10,7 +10,7 @@ struct LocationPicker: View {
             let placemark = MKPlacemark(
                 coordinate: location.coordinate,
                 addressDictionary: [
-                    CNPostalAddressStreetKey: location.address ?? "",
+                    CNPostalAddressStreetKey: location.address,
                 ]
             )
             let item = MKMapItem(placemark: placemark)
@@ -97,7 +97,7 @@ struct LocationPicker: View {
                 let location = Location(
                     latitude: coordinate.latitude,
                     longitude: coordinate.longitude,
-                    address: item.name
+                    address: item.name ?? ""
                 )
                 selectionHandler(location)
                 dismiss()

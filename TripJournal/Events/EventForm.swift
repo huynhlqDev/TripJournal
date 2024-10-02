@@ -36,10 +36,10 @@ struct EventForm: View {
             title = "Add Event"
 
         case let .edit(event):
-            title = "Edit \(event.name)"
-            _name = .init(initialValue: event.name)
+            title = "Edit \(String(describing: event.name))"
+            _name = .init(initialValue: event.name ?? "")
             _note = .init(initialValue: event.note)
-            _date = .init(initialValue: event.date)
+            _date = .init(initialValue: event.date ?? .now)
             _location = .init(initialValue: event.location)
             _transitionFromPrevious = .init(initialValue: event.transitionFromPrevious)
         }
@@ -159,7 +159,7 @@ struct EventForm: View {
         let bounds = MapCameraBounds(centerCoordinateBounds: region, minimumDistance: 250, maximumDistance: .infinity)
 
         Map(bounds: bounds) {
-            Marker(location.address ?? "", coordinate: location.coordinate)
+            Marker(location.address, coordinate: location.coordinate)
         }
     }
 
