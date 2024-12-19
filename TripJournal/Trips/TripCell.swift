@@ -34,9 +34,9 @@ struct TripCell: View {
 
     private var dateLabel: some View {
         HStack(alignment: .center, spacing: 4) {
-            Text(trip.startDate, style: .date)
+            Text(trip.startDate ?? .now, style: .date)
             Text("-")
-            Text(trip.endDate, style: .date)
+            Text(trip.endDate ?? .now, style: .date)
         }
         .font(.footnote)
     }

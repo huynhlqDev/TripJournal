@@ -54,11 +54,11 @@ struct EventCell: View {
 
     var title: some View {
         VStack(alignment: .center, spacing: 5) {
-            Text(event.date, style: .date)
+            Text(event.date ?? .now, style: .date)
                 .font(.caption)
                 .fontWidth(.condensed)
 
-            Text(event.name)
+            Text(event.name ?? "")
                 .font(.title2)
                 .bold()
 
@@ -111,7 +111,7 @@ struct EventCell: View {
         let bounds = MapCameraBounds(centerCoordinateBounds: region, minimumDistance: 250, maximumDistance: .infinity)
 
         Map(bounds: bounds) {
-            Marker(location.address ?? "", coordinate: location.coordinate)
+            Marker(location.address, coordinate: location.coordinate)
         }
         .mapStyle(.standard(elevation: .realistic))
         .frame(height: 150)
